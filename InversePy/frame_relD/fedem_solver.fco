@@ -1,0 +1,24 @@
+#FEDEM calculation options
+-fsifile "fedem_solver.fsi"
+# Initial static equilibrium parameters
+-initEquilibrium-
+-tolInitEquil 1e-06
+-limInitEquilStep 1
+-stressStiffEqu-
+# Time integration parameters
+-timeStart 0
+-timeEnd 2
+-timeInc 0.01
+-alphaNewmark 0.1
+-quasiStatic 2
+# Newton-Raphson iteration parameters
+-stressStiffDyn+
+-centripForceCorr+
+-nupdat 5
+-maxit 50
+-minit 1
+-maxSeqNoUpdate 5
+-tolUpdateFactor 100
+-tolDispNorm 1e-06
+-tolVelNorm 1e-06
+-tolEnerSum 1e-06

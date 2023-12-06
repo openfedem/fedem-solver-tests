@@ -1,0 +1,8 @@
+#FEDEM reducer options
+-linkfile "cam.ftl"
+-Bmatfile "cam_B.fmx"
+-gravfile "cam_G.fmx"
+-samfile  "cam_SAM.fsm"
+-stiffile "cam_S.fmx"
+-massfile "cam_M.fmx"
+-resfile  "cam.res"

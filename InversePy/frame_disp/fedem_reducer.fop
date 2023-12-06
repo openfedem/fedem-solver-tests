@@ -1,0 +1,10 @@
+#FEDEM output options
+-linkId 63
+-Bmatfile "frame_B.fmx"
+-Bmatprecision 2
+-eigfile "frame_E.fmx"
+-gravfile "frame_G.fmx"
+-samfile "frame_SAM.fsm"
+-stiffile "frame_S.fmx"
+-massfile "frame_M.fmx"
+-resfile "fedem_reducer.res"

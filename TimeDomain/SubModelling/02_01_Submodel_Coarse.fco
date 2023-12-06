@@ -1,0 +1,8 @@
+#FEDEM calculation options
+-linkfile "02_01_Submodel_Coarse.ftl"
+-nograv
+#FEDEM output options
+-Bmatfile "02_01_Submodel_Coarse_B.fmx"
+-samfile "02_01_Submodel_Coarse_SAM.fsm"
+-stiffile "02_01_Submodel_Coarse_S.fmx"
+-resfile "02_01_Submodel_Coarse.res"

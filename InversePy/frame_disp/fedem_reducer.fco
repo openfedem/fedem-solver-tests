@@ -1,0 +1,8 @@
+#FEDEM calculation options
+-linkfile "frame.ftl"
+-neval 0
+-ngen 12
+-tolEigval 1e-08
+-tolFactorize 1e-12
+-lumpedmass+
+-factorMass+

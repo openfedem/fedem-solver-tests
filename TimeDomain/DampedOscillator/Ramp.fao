@@ -1,0 +1,4 @@
+#FEDEM additional options
+-saveStart -2.1
+-rampSteps 100
+-rampGravity

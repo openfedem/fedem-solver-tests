@@ -1,0 +1,21 @@
+#FEDEM calculation options
+-fsifile "submodel.fsi"
+-displacementfile "02_01_Submodel_Coarse.fnd"
+# Time integration parameters
+-timeStart 0
+-timeEnd 1
+-timeInc 0.1
+-quasiStatic 1
+-numit -1
+-tolDispNorm 1.0
+# Recovery parameters
+-recovery 2
+#FEDEM output options
+-allPrimaryVars-
+-allGages
+-frs3file "02_01_Submodel_Coarse_gages.frs"
+-resfile "submodel.res"
+# Curve auto-export parameters
+-curveFile "submodel.fmm"
+-curvePlotType 5
+-curvePlotPrec 1

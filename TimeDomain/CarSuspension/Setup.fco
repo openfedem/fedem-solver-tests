@@ -1,0 +1,21 @@
+#FEDEM calculation options
+-fsifile "Model.fsi"
+# Time integration parameters
+-timeEnd 2.5
+-timeInc 0.005
+# Newton-Raphson iteration parameters
+-stressStiffDyn
+-centripForceCorr
+-maxit 50
+-nupdat 5
+-maxSeqNoUpdate 5
+-tolUpdateFactor 100
+-tolDispNorm 1.0e-6
+-tolVelNorm 1.0e-6
+-tolEnerSum 1.0e-6
+# Output of secondary variables
+-allSecondaryVars
+# Curve auto-export parameters
+-curveFile "SLA.fmm"
+-curvePlotType 5
+-curvePlotPrec 1

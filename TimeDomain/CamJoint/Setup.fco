@@ -1,0 +1,18 @@
+#FEDEM calculation options
+-fsifile "Model.fsi"
+# Time integration parameters
+-timeEnd 2
+-timeInc 0.001
+# Newton-Raphson iteration parameters
+-nupdat 50
+-maxit 50
+-tolVelNorm 0.0001
+-centripForceCorr
+# Output of secondary variables
+-allSystemVars
+-allSpringVars
+-allDamperVars
+# Curve auto-export parameters
+-curveFile "PearCamWithFriction.fmm"
+-curvePlotType 5
+-curvePlotPrec 1

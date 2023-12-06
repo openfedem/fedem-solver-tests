@@ -1,0 +1,17 @@
+#FEDEM calculation options
+-fsifile "Model.fsi"
+# Time integration parameters
+-timeEnd 10.0
+-timeInc 0.01
+-alphaNewmark 0.1
+# Newton-Raphson iteration parameters
+-maxit 50
+-nupdat 5
+-maxSeqNoUpdate 5
+-tolUpdateFactor 100
+-tolDispNorm 1.0e-6
+-tolEnerSum 1.0e-6
+# Switch off frs-file output
+-allPrimaryVars-
+# Switch off normal console output
+-terminal -1

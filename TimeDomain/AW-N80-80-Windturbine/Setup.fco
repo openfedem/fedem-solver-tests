@@ -1,0 +1,19 @@
+#FEDEM calculation options
+# Time integration parameters
+-timeEnd 5.0
+-timeInc 0.01
+-quasiStatic 5
+# Newton-Raphson iteration parameters
+-stressStiffDyn
+-maxit 50
+-nupdat 5
+-maxSeqNoUpdate 5
+-tolUpdateFactor 100
+-tolDispNorm 1.0e-6
+-tolEnerSum 1.0e-6
+# Recovery parameters
+-recovery -2
+# Switch off frs-file output
+-allPrimaryVars-
+# Switch off normal console output
+-terminal -1

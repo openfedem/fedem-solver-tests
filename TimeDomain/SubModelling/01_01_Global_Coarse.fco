@@ -1,0 +1,8 @@
+#FEDEM calculation options
+-linkfile "01_01_Global_Coarse.ftl"
+-nograv
+#FEDEM output options
+-Bmatfile "01_01_Global_Coarse_B.fmx"
+-samfile "01_01_Global_Coarse_SAM.fsm"
+-stiffile "01_01_Global_Coarse_S.fmx"
+-resfile "01_01_Global_Coarse.res"

@@ -1,0 +1,11 @@
+#FEDEM reducer options
+-linkfile "N80_StrainGage.nas"
+-Bmatfile "N80_StrainGage_B.fmx"
+-gravfile "N80_StrainGage_G.fmx"
+-samfile  "N80_StrainGage_SAM.fsm"
+-stiffile "N80_StrainGage_S.fmx"
+-massfile "N80_StrainGage_M.fmx"
+-resfile  "N80_StrainGage.res"
+-extNodes "<115213,115214>"
+-lumpedmass -nomass
+-nevred 0

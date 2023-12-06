@@ -1,0 +1,6 @@
+-nodeFile 02_01_Submodel_Coarse_Nodes.dat
+-ftlFile 01_01_Global_Coarse.ftl
+-subFile 02_01_Submodel_Coarse.nas
+-frsFile 01_01_Global_Coarse_rcy_1.frs
+-outFile 02_01_Submodel_Coarse.fnd
+-mapFile 02_01_Submodel_Coarse.map

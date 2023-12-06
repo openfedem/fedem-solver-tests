@@ -1,0 +1,10 @@
+-timeStart 0
+-timeEnd 1.0
+-timeInc 1.0
+-quasiStatic 1.0
+-numit -1
+-tolDispNorm 1.0
+-recovery 1
+-allPrimaryVars-
+-partDeformation 2
+-partVMStress 0

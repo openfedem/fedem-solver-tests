@@ -1,0 +1,10 @@
+#FEDEM output options
+-linkId 16
+-Bmatfile "shell_B.fmx"
+-Bmatprecision 2
+-eigfile "shell_E.fmx"
+-gravfile "shell_G.fmx"
+-samfile "shell_SAM.fsm"
+-stiffile "shell_S.fmx"
+-massfile "shell_M.fmx"
+-resfile "fedem_reducer.res"

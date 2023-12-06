@@ -1,0 +1,21 @@
+#FEDEM calculation options
+-fsifile "globalmodel.fsi"
+# Time integration parameters
+-timeStart 0
+-timeEnd 1
+-timeInc 0.1
+-quasiStatic 1
+-numit -1
+-tolDispNorm 1.0
+# Recovery parameters
+-recovery 3
+#FEDEM output options
+-allPrimaryVars-
+-allGages
+-partDeformation 2
+-frs3file "<"01_01_Global_Coarse_rcy.frs","01_01_Global_Coarse_gages.frs">"
+-resfile "globalmodel.res"
+# Curve auto-export parameters
+-curveFile "globalmodel.fmm"
+-curvePlotType 5
+-curvePlotPrec 1

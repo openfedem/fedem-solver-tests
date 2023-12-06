@@ -1,0 +1,8 @@
+#FEDEM reducer options
+-linkfile "009_Beam_320x20.ftl"
+-Bmatfile "009_Beam_320x20_B.fmx"
+-gravfile "009_Beam_320x20_G.fmx"
+-samfile  "009_Beam_320x20_SAM.fsm"
+-stiffile "009_Beam_320x20_S.fmx"
+-massfile "009_Beam_320x20_M.fmx"
+-resfile  "beam.res"

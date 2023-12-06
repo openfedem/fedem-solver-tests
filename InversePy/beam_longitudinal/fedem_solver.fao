@@ -1,0 +1,3 @@
+#FEDEM options file
+# Additional user-defined options to fedem_solver
+-allPrimaryVars-

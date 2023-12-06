@@ -1,0 +1,23 @@
+#FEDEM calculation options
+-fsifile "Windup.fsi"
+# Time integration parameters
+-timeEnd 2
+-timeInc 0.01
+# Newton-Raphson iteration parameters
+-stressStiffDyn
+-maxit 50
+-nupdat 5
+-maxSeqNoUpdate 5
+-tolUpdateFactor 100
+-tolDispNorm 1.0e-6
+-tolVelNorm 1.0e-6
+-tolEnerSum 1.0e-6
+# Output of secondary variables
+-allSystemVars
+-allTriadVars
+# Curve auto-export parameters
+-curveFile "Windup.fmm"
+-curvePlotType 5
+-curvePlotPrec 1
+# Switch off normal console output
+-terminal -1

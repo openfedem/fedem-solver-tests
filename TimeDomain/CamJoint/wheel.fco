@@ -1,0 +1,8 @@
+#FEDEM reducer options
+-linkfile "wheel.ftl"
+-Bmatfile "wheel_B.fmx"
+-gravfile "wheel_G.fmx"
+-samfile  "wheel_SAM.fsm"
+-stiffile "wheel_S.fmx"
+-massfile "wheel_M.fmx"
+-resfile  "wheel.res"

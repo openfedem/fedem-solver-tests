@@ -1,0 +1,27 @@
+#FEDEM calculation options
+-fsifile "Model.fsi"
+# Initial static equilibrium parameters
+-initEquilibrium
+-tolInitEquil 1.0e-6
+-stressStiffEqu
+# Time integration parameters
+-timeEnd 50
+-timeInc 0.025
+# Newton-Raphson iteration parameters
+-stressStiffDyn
+-centripForceCorr
+-nupdat 5
+-maxit 50
+-maxSeqNoUpdate 5
+-tolUpdateFactor 50
+-tolDispNorm 1.0e-6
+-tolVelNorm 1.0e-6
+-tolEnerSum 1.0e-6
+# Output of secondary variables
+-allSecondaryVars
+# Curve auto-export parameters
+-curveFile "WindTurbine.fmm"
+-curvePlotType 5
+-curvePlotPrec 1
+# Switch off normal console output
+-terminal -1

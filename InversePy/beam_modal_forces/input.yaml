@@ -1,0 +1,56 @@
+# GG
+# Handling regular equation system
+# Number of sensors corresponds to mode numbers
+#
+Inverse_mediator:
+
+    Base_case: &base_case
+
+        # total number of increments to run
+        total_increments: 1000
+
+        dataSrcSetup:
+
+            # warning: other sources than basemodel are not yet implemented
+
+            basemodel:
+                path: "./Cantilever4_base.fmm"
+
+            file:
+                filepath: ""
+
+            stream:
+                ip: ""
+                port: ""
+
+            srcList:
+                [
+                  { dataSrc: 1, type: basemodel, funcNum: 3 },
+                  { dataSrc: 2, type: basemodel, funcNum: 4 },
+                  { dataSrc: 3, type: file, column: 1 },
+                  { dataSrc: 4, type: stream, channel: 1 },
+                  { dataSrc: 5, type: hardcoded, value: 1 }
+                ]
+
+        # model paths
+        twin_path: "./"
+
+        internal_equations:
+
+            # put eigenmode numbers into list, define an eigenvalue solver
+            # eigenvalue solvers are: LANCZOS, DSYGVX, DGGEVX, SCIPY_EIGH
+            unknown_fm: { initial: [ 1, 2 ], solver: "SCIPY_EIGH" }
+
+            known_x:   [
+                         { baseID:  17, dof: ty },
+                         { baseID: 113, dof: ty }
+                       ]
+
+
+        # output file parameters
+        output_file_prefix: ""
+        file_length_limit: 2400
+        dt: 0.025
+
+    Case_A:
+        <<: *base_case

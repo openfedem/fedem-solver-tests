@@ -1,0 +1,14 @@
+#FEDEM calculation options
+-linkfile "knuckle.ftl"
+-ngen 12
+-lumpedmass
+-factorMass
+#FEDEM output options
+-linkId 31
+-Bmatfile "knuckle_B.fmx"
+-eigfile "knuckle_E.fmx"
+-gravfile "knuckle_G.fmx"
+-samfile "knuckle_SAM.fsm"
+-stiffile "knuckle_S.fmx"
+-massfile "knuckle_M.fmx"
+-resfile "knuckle.res"

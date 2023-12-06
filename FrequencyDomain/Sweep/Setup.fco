@@ -1,0 +1,26 @@
+#FEDEM calculation options
+-fsifile "Model.fsi"
+# Time integration parameters
+-timeInc 4.0
+-timeEnd 4.0
+# Newton-Raphson iteration parameters
+-maxit 50
+-nupdat 5
+-maxSeqNoUpdate 5
+-tolUpdateFactor 100
+-tolDispNorm 1.0e-6
+-tolVelNorm 1.0e-6
+-tolEnerSum 1.0e-6
+# Frequency domain solution parameters
+-frequency_domain
+-eiginc 4.0
+-sample_freq 1000.0
+-sweep_input 114 2
+-freq_output 113 2 17 2
+-freqfile "fd_p.frs"
+# Curve auto-export parameters
+-curveFile "B_sweep.fmm"
+-curvePlotType 5
+-curvePlotPrec 1
+# Switch off normal console output
+-terminal -1

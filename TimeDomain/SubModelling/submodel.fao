@@ -1,0 +1,5 @@
+#FEDEM additional options
+-fsi2file "rotations.fsi"
+# Override settings from the fco-file
+-displacementfile "02_01_Submodel_withRot.fnd"
+-resfile "submodel-rot.res"

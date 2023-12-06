@@ -1,0 +1,5 @@
+# Eigenvalue solution parameters
+-numEigModes 10
+-addBC_eigensolver
+-stressStiffEig
+-eiginc 0.1

@@ -1,0 +1,8 @@
+#FEDEM calculation options
+-linkfile "02_02_Submodel_Fine.ftl"
+-nograv
+#FEDEM output options
+-Bmatfile "02_02_Submodel_Fine_B.fmx"
+-samfile "02_02_Submodel_Fine_SAM.fsm"
+-stiffile "02_02_Submodel_Fine_S.fmx"
+-resfile "02_02_Submodel_Fine.res"

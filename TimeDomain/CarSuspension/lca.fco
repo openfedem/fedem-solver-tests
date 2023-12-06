@@ -1,0 +1,14 @@
+#FEDEM calculation options
+-linkfile "lca.ftl"
+-ngen 12
+-lumpedmass
+-factorMass
+#FEDEM output options
+-linkId 19
+-Bmatfile "lca_B.fmx"
+-eigfile "lca_E.fmx"
+-gravfile "lca_G.fmx"
+-samfile "lca_SAM.fsm"
+-stiffile "lca_S.fmx"
+-massfile "lca_M.fmx"
+-resfile "lca.res"

@@ -1,0 +1,22 @@
+#FEDEM calculation options
+-fsifile "Model.fsi"
+# Time integration parameters
+-timeEnd 50
+-timeInc 0.01
+# Newton-Raphson iteration parameters
+-nupdat 5
+-maxit 50
+-maxSeqNoUpdate 5
+-tolUpdateFactor 100
+-tolDispNorm 1.0e-6
+-tolVelNorm 1.0e-6
+-tolEnerSum 1.0e-6
+# Output of secondary variables
+-allSystemVars
+-allSpringVars
+# Curve auto-export parameters
+-curveFile "SoilDegradation.fmm"
+-curvePlotType 5
+-curvePlotPrec 1
+# Switch off normal console output
+-terminal -1

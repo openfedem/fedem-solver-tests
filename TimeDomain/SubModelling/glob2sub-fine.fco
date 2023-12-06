@@ -1,0 +1,5 @@
+-nodeFile 02_02_Submodel_Fine_Nodes.dat
+-ftlFile 01_01_Global_Coarse.ftl
+-subFile 02_02_Submodel_Fine.nas
+-frsFile 01_01_Global_deformation_1.frs
+-outFile 02_02_Submodel_Fine.fnd

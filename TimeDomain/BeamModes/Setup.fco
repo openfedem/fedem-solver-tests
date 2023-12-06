@@ -1,0 +1,18 @@
+#FEDEM calculation options
+-fsifile "Model.fsi"
+# Initial static equilibrium parameters
+-initEquilibrium
+-tolInitEquil 1.0e-6
+-timeEnd 0.0
+# Eigenvalue solution parameters
+-numEigModes 10
+-addBC_eigensolver
+-stressStiffEig
+# Switch off frs-file output
+-allPrimaryVars-
+# Curve auto-export parameters
+-curveFile "BeamModes.fmm"
+-curvePlotType 5
+-curvePlotPrec 1
+# Switch off normal console output
+-terminal -1

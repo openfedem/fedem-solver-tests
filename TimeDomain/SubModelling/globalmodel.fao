@@ -1,0 +1,7 @@
+#FEDEM additional options
+-partVMStress 0
+# Override settings from the fco-file
+-recovery 11
+-allGages-
+-frs3file "01_01_Global_deformation.frs"
+-resfile "globalmodel-all.res"

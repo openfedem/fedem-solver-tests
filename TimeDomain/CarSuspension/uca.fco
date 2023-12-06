@@ -1,0 +1,14 @@
+#FEDEM calculation options
+-linkfile "uca.ftl"
+-ngen 12
+-lumpedmass
+-factorMass
+#FEDEM output options
+-linkId 33
+-Bmatfile "uca_B.fmx"
+-eigfile "uca_E.fmx"
+-gravfile "uca_G.fmx"
+-samfile "uca_SAM.fsm"
+-stiffile "uca_S.fmx"
+-massfile "uca_M.fmx"
+-resfile "uca.res"

@@ -1,0 +1,8 @@
+#FEDEM reducer options
+-linkfile "Axle.ftl"
+-Bmatfile "Axle_B.fmx"
+-gravfile "Axle_G.fmx"
+-samfile  "Axle_SAM.fsm"
+-stiffile "Axle_S.fmx"
+-massfile "Axle_M.fmx"
+-resfile  "axle.res"
