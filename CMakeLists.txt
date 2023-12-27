@@ -64,10 +64,6 @@ if ( VALGRIND )
   set ( VALGRIND_CMD ${VALGRIND} --leak-check=full --show-leak-kinds=all )
 endif ( VALGRIND )
 
-set ( REDUCE ${VALGRIND_CMD} ../../../../vpmReducer/fedem_reducer )
-set ( SOLMAP ${VALGRIND_CMD} ../../../../SolutionMapper/fedem_solmap )
-set ( SOLVER ${VALGRIND_CMD} ../../../fedem_solver )
-
 add_custom_target ( copy_test_input_files )
 foreach ( TEST ${TEST_DIRS} )
   set ( BIN_DIR ${CMAKE_CURRENT_BINARY_DIR}/${TEST} )

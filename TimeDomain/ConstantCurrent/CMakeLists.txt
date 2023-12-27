@@ -4,7 +4,7 @@
 #
 # This file is part of FEDEM - https://openfedem.org
 
-set ( TEST_ID "ConstantCurrent" )
+set ( TEST_ID ConstantCurrent )
 
 message ( STATUS "INFORMATION : Adding regression test ${TEST_ID}" )
 
@@ -12,6 +12,6 @@ if ( NOT FT_LARGE_MODELS )
   set ( END_TIME -timeEnd 1 )
 endif ( NOT FT_LARGE_MODELS )
 
-add_test ( ${TEST_ID} ${SOLVER}
+add_test ( NAME ${TEST_ID} COMMAND fedem_solver
            -fco Setup.fco ${END_TIME} -curvePlotFile outputs.asc
            -verify exported_curves.asc 1.0e-6 )

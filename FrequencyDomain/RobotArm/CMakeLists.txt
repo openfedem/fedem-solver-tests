@@ -4,11 +4,11 @@
 #
 # This file is part of FEDEM - https://openfedem.org
 
-set ( TEST_ID "FreqDomainRobot" )
+set ( TEST_ID RobotArm )
 
 message ( STATUS "INFORMATION : Adding regression test ${TEST_ID}" )
 
-add_test ( ${TEST_ID} ../../../../fedem_solver
+add_test ( NAME ${TEST_ID}-FDA COMMAND ${VALGRIND_CMD} fedem_solver
            -fco Setup.fco -curvePlotFile outputs.asc
            -verify exported_curves.asc 1.0e-6 )
 
