@@ -4,6 +4,14 @@
 #
 # This file is part of FEDEM - https://openfedem.org
 
+################################################################################
+# This cmake project file conducts the regression tests for the FEDEM solvers
+# using the ctest tool. The individual tests are located in subdirectories.
+# Notice that the input files of the tests are copied from the source tree
+# into the build tree in the configuration step, to avoid that the source tree
+# is polluted by result files when executing the tests.
+################################################################################
+
 # List all the tests that you want to execute as regression tests here
 set ( TEST_DIRS FreeFallTriad SimplePendulum MassSpring BeamModes
                 ConstantCurrent AddedMass InternalFluid
@@ -21,10 +29,10 @@ endif ( USE_CONCURRENT_RECOVERY )
 
 if ( WIN )
   find_file ( BarElm_LIBRARY NAMES BarElm.dll
-              PATHS ${FTREL_FTPLUGINROOT}/plugin/FTplugins/bin )
+              PATHS $ENV{FEDEM_PLUGIN} ${CMAKE_INSTALL_PREFIX}/bin/Plugin )
 else ( WIN )
   find_library ( BarElm_LIBRARY NAMES BarElm
-                 PATHS ${FTREL_FTPLUGINROOT}/plugin/FTplugins/lib )
+                 PATHS $ENV{FEDEM_PLUGIN} ${CMAKE_INSTALL_PREFIX}/bin/Plugin )
 endif ( WIN )
 if ( BarElm_LIBRARY )
   message ( STATUS "Found plugin: ${BarElm_LIBRARY}" )
@@ -62,25 +70,24 @@ set ( SOLVER ${VALGRIND_CMD} ../../../fedem_solver )
 
 add_custom_target ( copy_test_input_files )
 foreach ( TEST ${TEST_DIRS} )
-  set ( CMAKE_LISTS ${CMAKE_CURRENT_SOURCE_DIR}/TimeDomain/${TEST}/CMakeLists.txt )
-  if ( EXISTS ${CMAKE_LISTS} )
-    add_subdirectory ( TimeDomain/${TEST} ${CMAKE_CURRENT_BINARY_DIR}/${TEST} )
-  elseif ( EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/FrequencyDomain/${TEST}/CMakeLists.txt )
-    add_subdirectory ( FrequencyDomain/${TEST} ${CMAKE_CURRENT_BINARY_DIR}/${TEST} )
+  set ( BIN_DIR ${CMAKE_CURRENT_BINARY_DIR}/${TEST} )
+  set ( CML_TDA ${CMAKE_CURRENT_SOURCE_DIR}/TimeDomain/${TEST}/CMakeLists.txt )
+  set ( CML_FDA ${CMAKE_CURRENT_SOURCE_DIR}/FrequencyDomain/${TEST}/CMakeLists.txt )
+  if ( EXISTS ${CML_TDA} )
+    set ( SRC_DIR TimeDomain/${TEST} )
+  elseif ( EXISTS ${CML_FDA} AND FFT_LIBRARY )
+    set ( SRC_DIR FrequencyDomain/${TEST} )
   elseif ( EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/${TEST}/CMakeLists.txt )
-    add_subdirectory ( ${TEST} )
-  else ( EXISTS ${CMAKE_LISTS} )
-    continue ( TEST ${TEST_DIRS} )
-  endif ( EXISTS ${CMAKE_LISTS} )
+    set ( SRC_DIR ${TEST} )
+  else ( EXISTS ${CML_TDA} )
+    continue ()
+  endif ( EXISTS ${CML_TDA} )
+  add_subdirectory ( ${SRC_DIR} ${BIN_DIR} )
+  set ( SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/${SRC_DIR} )
   add_custom_command ( TARGET copy_test_input_files
-                       COMMAND ${CMAKE_COMMAND} -E copy_directory
-                               ${CMAKE_CURRENT_SOURCE_DIR}/${TEST}
-                               ${CMAKE_CURRENT_BINARY_DIR}/${TEST} )
+                       COMMAND ${CMAKE_COMMAND} -E copy_directory ${SRC_DIR} ${BIN_DIR} )
   add_custom_command ( TARGET copy_test_input_files
                        COMMAND ${CMAKE_COMMAND} -E remove -f
-                               ${CMAKE_CURRENT_BINARY_DIR}/${TEST}/*.md
-                               ${CMAKE_CURRENT_BINARY_DIR}/${TEST}/CMakeLists.*
-                               ${CMAKE_CURRENT_BINARY_DIR}/${TEST}/*/*.md
-                               ${CMAKE_CURRENT_BINARY_DIR}/${TEST}/*/*.png
-                               ${CMAKE_CURRENT_BINARY_DIR}/${TEST}/*/CMakeLists.* )
+                       ${BIN_DIR}/*.md ${BIN_DIR}/CMakeLists.*
+                       ${BIN_DIR}/*/*.md ${BIN_DIR}/*/*.png ${BIN_DIR}/*/CMakeLists.* )
 endforeach ( TEST ${TEST_DIRS} )
