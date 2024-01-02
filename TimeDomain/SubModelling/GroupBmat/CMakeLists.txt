@@ -4,28 +4,19 @@
 #
 # This file is part of FEDEM - https://openfedem.org
 
-set ( TEST_ID "GroupBmat" )
-
-set ( PSOLVE ${VALGRIND_CMD} ../../../../../vpmReducer/fedem_partsol )
-set ( REDUCE ${VALGRIND_CMD} ../../../../../vpmReducer/fedem_reducer )
-set ( SOLMAP ${VALGRIND_CMD} ../../../../../SolutionMapper/fedem_solmap )
-set ( SOLVER ${VALGRIND_CMD} ../../../../fedem_solver )
+set ( TEST_ID GroupBmat )
 
 message ( STATUS "INFORMATION : Adding regression test ${TEST_ID}" )
 
 # Global model direct solve
-add_test ( ${TEST_ID}-glb ${PSOLVE}
+add_test ( NAME ${TEST_ID}-glb COMMAND ${VALGRIND_CMD} fedem_partsol
            -linkFile 01_01_Global_Coarse.ftl
            -frsFile  01_01_Global_Coarse.frs )
 
 if ( TARGET fedem_solmap )
 
-  if ( NOT ${FT_TOLERANCE} EQUAL "0.0" )
-    set ( COMPARE ../comp_fnd 1.0e-8 )
-  endif ( NOT ${FT_TOLERANCE} EQUAL "0.0" )
-
 # Map internal displacements at interface nodes to sub-model
-  add_test ( ${TEST_ID}-map ${SOLMAP}
+  add_test ( NAME ${TEST_ID}-map COMMAND ${VALGRIND_CMD} fedem_solmap
              -nodeFile ../02_01_Submodel_Coarse_Nodes.dat
              -subFile  ../02_01_Submodel_Coarse.nas
              -ftlFile 01_01_Global_Coarse.ftl
@@ -33,7 +24,7 @@ if ( TARGET fedem_solmap )
              -outFile 02_01_Submodel_Coarse.fnd )
 
 # Sub-model FE part reduction
-  add_test ( ${TEST_ID}-red ${REDUCE} -noGrav
+  add_test ( NAME ${TEST_ID}-red COMMAND ${VALGRIND_CMD} fedem_reducer -noGrav
              -linkfile 02_01_Submodel_Coarse.ftl
              -Bmatfile 02_01_Submodel_Coarse_B.fmx
              -samfile  02_01_Submodel_Coarse_SAM.fsm
@@ -41,19 +32,20 @@ if ( TARGET fedem_solmap )
              -resfile  02_01_Submodel_Coarse.res )
 
 # Sub-model system solve with displacement recovery on element group
-  add_test ( ${TEST_ID}-sub ${SOLVER} -fco solver.fco
-             -fsifile submodel.fsi -resfile submodelG.res
+  add_test ( NAME ${TEST_ID}-sub COMMAND ${VALGRIND_CMD} fedem_solver
+             -fco solver.fco -fsifile submodel.fsi -resfile submodelG.res
              -displacementfile 02_01_Submodel_Coarse.fnd
              -frs3file 02_01_Submodel_Group.frs )
 
 # Sub-model system solve with displacement recovery on whole model
-  add_test ( ${TEST_ID}-whl ${SOLVER} -fco solver.fco -recovery 11
+  add_test ( NAME ${TEST_ID}-whl COMMAND ${VALGRIND_CMD} fedem_solver
+             -fco solver.fco -recovery 11
              -fsifile submodel.fsi -resfile submodelA.res
              -displacementfile 02_01_Submodel_Coarse.fnd
              -frs3file 02_01_Submodel_All.frs )
 
 # Map internal displacements at interface nodes to sub-sub-model
-  add_test ( ${TEST_ID}-map2 ${SOLMAP}
+  add_test ( NAME ${TEST_ID}-map2 COMMAND ${VALGRIND_CMD} fedem_solmap
              -nodeFile subsubnodes.dat
              -subFile  subsubmodel.ftl
              -mapFile  subsubmodel.map
@@ -62,14 +54,20 @@ if ( TARGET fedem_solmap )
              -outFile  02_01_Submodel_Group.fnd )
 
 # Map internal displacements using the whole-model displacement file instead
-  add_test ( ${TEST_ID}-map3 ${SOLMAP}
+  add_test ( NAME ${TEST_ID}-map3 COMMAND ${VALGRIND_CMD} fedem_solmap
              -mapFile  subsubmodel.map
              -frsFile  02_01_Submodel_All_1.frs
              -outFile  02_01_Submodel_All.fnd )
 
 # This should give identical results
-  add_test ( ${TEST_ID}-comp ${COMPARE}
-             02_01_Submodel_Group.fnd 02_01_Submodel_All.fnd )
+  if ( TARGET comp_fnd )
+    add_test ( NAME ${TEST_ID}-comp COMMAND comp_fnd 1.0e-8
+               02_01_Submodel_Group.fnd 02_01_Submodel_All.fnd )
+  else ( TARGET comp_fnd )
+#   Check for exact match using cmake's internal file comparing command
+    add_test ( ${TEST_ID}-comp ${CMAKE_COMMAND} -E compare_files
+               02_01_Submodel_Group.fnd 02_01_Submodel_All.fnd )
+  endif ( TARGET comp_fnd )
 
 # Ensure the processes are performed in the right order
   set_tests_properties ( ${TEST_ID}-comp PROPERTIES DEPENDS ${TEST_ID}-map3 )

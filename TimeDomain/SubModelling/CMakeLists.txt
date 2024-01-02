@@ -4,38 +4,35 @@
 #
 # This file is part of FEDEM - https://openfedem.org
 
-set ( TEST_ID "SubModelling" )
+set ( TEST_ID SubModelling )
 
 message ( STATUS "INFORMATION : Adding regression test ${TEST_ID}" )
 
 # Global model FE part reduction
-add_test ( ${TEST_ID}-reduce ${REDUCE} -terminal -1
-           -fco 01_01_Global_Coarse.fco )
+add_test ( NAME ${TEST_ID}-reduce COMMAND ${VALGRIND_CMD} fedem_reducer
+           -fco 01_01_Global_Coarse.fco -terminal -1 )
 
 # Global model system solve
 # with recovery of internal displacements and von Mises stress
 # on an element group, as well as strain gage recovery
-add_test ( ${TEST_ID}-global ${SOLVER} -terminal -1
-           -fco globalmodel.fco -curvePlotFile outputs.asc
-           -verify PrincipalStresses.asc 1.0e-5 )
+add_test ( NAME ${TEST_ID}-global COMMAND ${VALGRIND_CMD} fedem_solver
+           -fco globalmodel.fco -terminal -1
+           -curvePlotFile outputs.asc -verify PrincipalStresses.asc 1.0e-5 )
 
 # Redo the global model system solve
 # with recovery of internal displacements on the whole model,
 # and no von Mises stress calculation and no strain gage recovery.
 # Notice no result verification here, this test is only used to generate
 # input for the ${TEST_ID}-map2 test.
-add_test ( ${TEST_ID}-nogrp ${SOLVER} -terminal -1
-           -fco globalmodel.fco -fao globalmodel.fao )
+add_test ( NAME ${TEST_ID}-nogrp COMMAND ${VALGRIND_CMD} fedem_solver
+           -fco globalmodel.fco -fao globalmodel.fao -terminal -1 )
 
 if ( TARGET fedem_solmap )
   if ( TARGET check )
     add_dependencies ( check fedem_solmap )
   endif ( TARGET check )
 
-  if ( ${FT_TOLERANCE} EQUAL "0.0" )
-#   Check for exact match using cmake's internal file comparing command
-    set ( COMPARE ${CMAKE_COMMAND} -E compare_files )
-  else ( ${FT_TOLERANCE} EQUAL "0.0" )
+  if ( NOT ${FT_TOLERANCE} EQUAL "0.0" )
 #   Build a utility program comparing two binary fnd-files with some tolerance
     add_executable ( comp_fnd compareFnd.C )
     add_executable ( list_fnd listFnd.C )
@@ -44,47 +41,57 @@ if ( TARGET fedem_solmap )
     if ( TARGET check )
       add_dependencies ( check comp_fnd )
     endif ( TARGET check )
-    set ( COMPARE comp_fnd ${FT_TOLERANCE} )
-  endif ( ${FT_TOLERANCE} EQUAL "0.0" )
+  endif ( NOT ${FT_TOLERANCE} EQUAL "0.0" )
 
 # Map internal displacements at interface nodes to sub-model
-  add_test ( ${TEST_ID}-map ${SOLMAP} -fco glob2sub.fco )
+  add_test ( NAME ${TEST_ID}-map COMMAND ${VALGRIND_CMD} fedem_solmap
+            -fco glob2sub.fco )
 # Map internal displacements using the whole-model displacement file instead
-  add_test ( ${TEST_ID}-map2 ${SOLMAP} -mapFile 02_01_Submodel_Coarse.map
+  add_test ( NAME ${TEST_ID}-map2 COMMAND ${VALGRIND_CMD} fedem_solmap
+             -mapFile 02_01_Submodel_Coarse.map
              -frsFile 01_01_Global_deformation_1.frs -outFile submodel.fnd )
 # This should give identical results
-  add_test ( ${TEST_ID}-comp ${COMPARE} 02_01_Submodel_Coarse.fnd submodel.fnd )
+  if ( TARGET comp_fnd )
+    add_test ( NAME ${TEST_ID}-comp COMMAND comp_fnd ${FT_TOLERANCE}
+               02_01_Submodel_Coarse.fnd submodel.fnd )
+  else ( TARGET comp_fnd )
+#   Check for exact match using cmake's internal file comparing command
+    add_test ( ${TEST_ID}-comp ${CMAKE_COMMAND} -E compare_files
+               02_01_Submodel_Coarse.fnd submodel.fnd )
+  endif ( TARGET comp_fnd )
 # Map internal displacements including rotational DOFs
-  add_test ( ${TEST_ID}-rotmap ${SOLMAP} -fco glob2sub-rot.fco )
+  add_test ( NAME ${TEST_ID}-rotmap COMMAND ${VALGRIND_CMD} fedem_solmap
+             -fco glob2sub-rot.fco )
   if ( FT_LARGE_MODELS )
 #   Map internal displacements at interface nodes to fine sub-model
-    add_test ( ${TEST_ID}-mapfine ${SOLMAP} -fco glob2sub-fine.fco )
+    add_test ( NAME ${TEST_ID}-mapfine COMMAND fedem_solmap
+               -fco glob2sub-fine.fco )
   endif ( FT_LARGE_MODELS )
 
 # Sub-model FE part reduction
-  add_test ( ${TEST_ID}-redsub ${REDUCE} -terminal -1
-             -fco 02_01_Submodel_Coarse.fco )
+  add_test ( NAME ${TEST_ID}-redsub COMMAND fedem_reducer
+             -fco 02_01_Submodel_Coarse.fco -terminal -1 )
   if ( FT_LARGE_MODELS )
-    add_test ( ${TEST_ID}-redfine ${REDUCE} -terminal -1
-               -fco 02_02_Submodel_Fine.fco )
+    add_test ( NAME ${TEST_ID}-redfine COMMAND fedem_reducer
+               -fco 02_02_Submodel_Fine.fco -terminal -1 )
   endif ( FT_LARGE_MODELS )
 
 # Sub-model system solve with strain gage recovery
-  add_test ( ${TEST_ID} ${SOLVER} -terminal -1
-             -fco submodel.fco -curvePlotFile outputs.asc
-             -verify PrincipalStresses.asc 0.018 )
+  add_test ( NAME ${TEST_ID} COMMAND ${VALGRIND_CMD} fedem_solver
+             -fco submodel.fco -terminal -1
+             -curvePlotFile outputs.asc -verify PrincipalStresses.asc 0.018 )
 
 # Sub-model system solve with strain gage recovery
 # including prescribed rotations at interface nodes
-  add_test ( ${TEST_ID}-rot ${SOLVER} -terminal -1
-             -fco submodel.fco -fao submodel.fao -curvePlotFile outputs-rot.asc
-             -verify PrincipalStresses.asc 0.014 )
+  add_test ( NAME ${TEST_ID}-rot COMMAND ${VALGRIND_CMD} fedem_solver
+             -fco submodel.fco -fao submodel.fao -terminal -1
+             -curvePlotFile outputs-rot.asc -verify PrincipalStresses.asc 0.014 )
 
   if ( FT_LARGE_MODELS )
 #   Fine sub-model system solve with strain gage recovery
-    add_test ( ${TEST_ID}-fine ${SOLVER} -terminal -1
-               -fco submodel-fine.fco -curvePlotFile outputs.asc
-               -verify PrincipalStresses.asc 0.08 )
+    add_test ( NAME ${TEST_ID}-fine COMMAND fedem_solver
+               -fco submodel-fine.fco -terminal -1
+               -curvePlotFile outputs.asc -verify PrincipalStresses.asc 0.08 )
   endif ( FT_LARGE_MODELS )
 
 # Ensure the processes are performed in the right order

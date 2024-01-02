@@ -4,12 +4,12 @@
 #
 # This file is part of FEDEM - https://openfedem.org
 
-set ( TEST_ID "MassSpring" )
+set ( TEST_ID MassSpring )
 
 # The original test (old HHT procedure)
 message ( STATUS "INFORMATION : Adding regression test ${TEST_ID}-HHT" )
 
-add_test ( ${TEST_ID}-HHT ${SOLVER}
+add_test ( NAME ${TEST_ID}-HHT COMMAND ${VALGRIND_CMD} fedem_solver
            -fco Setup.fco -curvePlotFile outputs.asc
            -verify exported_curves.asc ${FT_TOLERANCE} )
 
@@ -17,7 +17,7 @@ add_test ( ${TEST_ID}-HHT ${SOLVER}
 # Only some small discrepancies are to be expected.
 message ( STATUS "INFORMATION : Adding regression test ${TEST_ID}-HHT1" )
 
-add_test ( ${TEST_ID}-HHT1 ${SOLVER}
+add_test ( NAME ${TEST_ID}-HHT1 COMMAND ${VALGRIND_CMD} fedem_solver
            -fco Setup.fco -NewmarkFlag 1 -curvePlotFile outputHHT.asc
            -verify exported_curves.asc 0.015 )
 
@@ -25,7 +25,7 @@ add_test ( ${TEST_ID}-HHT1 ${SOLVER}
 # Should give identical response as HHT1 with 'true inertia' force.
 message ( STATUS "INFORMATION : Adding regression test ${TEST_ID}-GA" )
 
-add_test ( ${TEST_ID}-GA ${SOLVER}
+add_test ( NAME ${TEST_ID}-GA COMMAND ${VALGRIND_CMD} fedem_solver
            -fco Setup.fco -NewmarkFlag 200 -curvePlotFile outputGA.asc
            -verify outputHHT.asc ${FT_TOLERANCE} )
 

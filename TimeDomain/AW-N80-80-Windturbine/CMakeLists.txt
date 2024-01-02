@@ -11,7 +11,7 @@ if ( BUILD_DUMMY_SUPEL_DLL )
 # Build the model-dependent shared library vpmSupEls
 
 if ( LINUX )
-  set ( CMAKE_Fortran_FLAGS "${CMAKE_Fortran_FLAGS} -ffree-line-length-2048" )
+  string ( APPEND CMAKE_Fortran_FLAGS " -ffree-line-length-2048" )
   set ( LIB_NAME libvpmSupEls.so )
 endif ( LINUX )
 
@@ -29,7 +29,7 @@ endif ( LINUX )
 
 # Now set up the actual test
 
-add_test ( WindTurbine-restart ../../test_restart
+add_test ( NAME WindTurbine-restart COMMAND test_restart
            -fco Setup.fco -fsifile Model-gen.fsi -fsi2file Gages.fsi
            -verify Responses.asc 1.0e-4
            -output 155 156 153 154 135 136 139 140 143 144
@@ -48,11 +48,11 @@ elseif ( FT_LARGE_MODELS )
 
 # Reduce the base FE part
 
-add_test ( N80-base ../../../../vpmReducer/fedem_reducer -fco N80-base.fco )
+add_test ( NAME N80-base COMMAND fedem_reducer -fco N80-base.fco )
 
 # Run the solver test using the freshly reduced superelement instead
 
-add_test ( WindTurbine-refresh ../../test_restart
+add_test ( NAME WindTurbine-refresh COMMAND test_restart
            -fco Setup.fco -recovery 2 -fsifile Model.fsi -fsi2file Gages.fsi
            -verify Responses.asc 1.0e-4
            -output 155 156 153 154 135 136 139 140 143 144
