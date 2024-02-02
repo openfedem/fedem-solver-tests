@@ -23,7 +23,7 @@ if ( FT_LARGE_MODELS )
   set ( END_TIME -timeEnd 10 )
 endif ( FT_LARGE_MODELS )
 
-add_test ( NAME ${TEST_ID}-modes COMMAND ${VALG_CMD} fedem_soler
+add_test ( NAME ${TEST_ID}-modes COMMAND ${VALG_CMD} fedem_solver
            -fco Setup.fco -fop EigenValues.fop ${END_TIME}
            -curvePlotFile outputs.asc
            -curveFile EigenValues.fmm -verify eigenvalues.asc 0.001 )
