@@ -40,7 +40,13 @@ if ( BarElm_LIBRARY )
 endif ( BarElm_LIBRARY )
 
 if ( BUILD_SOLVER_AS_DLL )
-  find_package ( PythonInterp 3 )
+  if ( CMAKE_VERSION VERSION_LESS 3.12 )
+    find_package ( PythonInterp 3 ) # sets ${PYTHON_EXECUTABLE}
+  else ( CMAKE_VERSION VERSION_LESS 3.12 )
+    find_package ( Python3 ) # sets ${Python3_EXECUTABLE}
+    set ( PythonInterp_FOUND ${Python3_FOUND} )
+    set ( PYTHON_EXECUTABLE ${Python3_EXECUTABLE} )
+  endif ( CMAKE_VERSION VERSION_LESS 3.12 )
   if ( PythonInterp_FOUND )
     # Include regression tests for the Inverse python module
     list ( APPEND TEST_DIRS InversePy )
