@@ -16,8 +16,15 @@
 set ( TEST_DIRS FreeFallTriad SimplePendulum MassSpring BeamModes
                 ConstantCurrent AddedMass InternalFluid
                 ParticleInWaves SoilDegradation CarSuspension CamJoint
-                DampedOscillator Cantilever-extFunc Cantilever-inverse
+                DampedOscillator
                 Tower Frame Sweep SpringDamper RobotArm )
+
+if ( TARGET test_external )
+  list ( APPEND TEST_DIRS Cantilever-extFunc )
+endif ( TARGET test_external )
+if ( TARGET test_inverse )
+  list ( APPEND TEST_DIRS Cantilever-inverse )
+endif ( TARGET test_inverse )
 
 if ( USE_AERODYN_PLUGIN )
   list ( APPEND TEST_DIRS WindTurbine )
@@ -86,9 +93,9 @@ foreach ( TEST ${TEST_DIRS} )
   endif ( EXISTS ${CML_TDA} )
   add_subdirectory ( ${SRC_DIR} ${BIN_DIR} )
   set ( SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/${SRC_DIR} )
-  add_custom_command ( TARGET copy_test_input_files
+  add_custom_command ( TARGET copy_test_input_files POST_BUILD
                        COMMAND ${CMAKE_COMMAND} -E copy_directory ${SRC_DIR} ${BIN_DIR} )
-  add_custom_command ( TARGET copy_test_input_files
+  add_custom_command ( TARGET copy_test_input_files POST_BUILD
                        COMMAND ${CMAKE_COMMAND} -E remove -f
                        ${BIN_DIR}/*.md ${BIN_DIR}/CMakeLists.*
                        ${BIN_DIR}/*/*.md ${BIN_DIR}/*/*.png ${BIN_DIR}/*/CMakeLists.* )
