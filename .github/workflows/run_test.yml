@@ -1,0 +1,47 @@
+# SPDX-FileCopyrightText: 2023 SAP SE
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+# This file is part of FEDEM - https://openfedem.org
+
+name: Regression testing
+
+on:
+  pull_request:
+    branches:
+      - main
+
+  workflow_dispatch:
+
+jobs:
+  install-and-test:
+    name: Download solvers and execute tests
+
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Silence some advice/hints and set path
+        run: |
+          git config --global advice.detachedHead false
+          git config --global init.defaultBranch main
+          echo "${{ github.workspace }}/bin" >> $GITHUB_PATH
+          echo "LD_LIBRARY_PATH=${{ github.workspace }}/bin" >> $GITHUB_ENV
+
+      - name: Check out source repository
+        uses: actions/checkout@v4
+
+      - name: Download latest FEDEM release
+        uses: robinraju/release-downloader@v1
+        with:
+          repository: openfedem/fedem-solvers
+          fileName: '*_linux64.tar.gz'
+          latest: true
+          extract: true
+
+      - name: Configure the tests
+        run: >
+          cmake -S ./Test -B ./build -DCMAKE_BUILD_TYPE=Release
+          -DUSE_FFTPACK=ON -DFT_LARGE_MODELS=OFF -DFT_TOLERANCE=1.0e-10
+
+      - name: Execute tests
+        run:  cmake --build ./build --target check

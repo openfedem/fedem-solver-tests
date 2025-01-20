@@ -7,6 +7,7 @@
 --->
 
 [![REUSE status](https://api.reuse.software/badge/github.com/openfedem/fedem-solver-tests)](https://api.reuse.software/info/github.com/openfedem/fedem-solver-tests)
+[![Test status](https://github.com/openfedem/fedem-solver-tests/actions/workflows/run_test.yml/badge.svg)](https://github.com/openfedem/fedem-solver-tests/actions/workflows/run_test.yml)
 
 # FEDEM solver regression tests
 
