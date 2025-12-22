@@ -11,14 +11,14 @@ import test_utils as utils
 plot_curves = False  # False for no plots
 
 
-def run_simulation(inp):
+def run_simulation(inp, print_stepping):
 
     L_0 = 0.496158715  # Initial length
     X_0 = 0.3  # initial position
 
     twin_funcId = [8, 9]
 
-    twinmodel = FedemRun(".", inp)
+    twinmodel = FedemRun(".", inp, print_stepping)
 
     base1 = [0.0, 0.0]
 
@@ -28,8 +28,6 @@ def run_simulation(inp):
 
     # ======================= TIME LOOP =========================
     for n in range(inp["total_increments"]):
-        print("\n+++++++++++++++++++++++++++++++++++++++++++++")
-        print("Solving time increment", n)
 
         base1[:] = baseRes[n + 1]
         base1[0] -= L_0  # subtract initial length
@@ -41,13 +39,13 @@ def run_simulation(inp):
 
         twinRes.append(twin)
 
-    twinmodel.solver_done()
+    twinmodel.done_inverse()
     return baseRes, twinRes
 
 
-def main():
+def main(print_stepping=False):
 
-    baseR, twinR = run_simulation(utils.read_input())
+    baseR, twinR = run_simulation(utils.read_input(), print_stepping)
 
     # graphical output with matplotlib
     if plot_curves:
@@ -63,6 +61,6 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    main(not utils.parse_input().no_print)
 
 # end of file

@@ -28,14 +28,14 @@ def run_reducer():
     return ierr
 
 
-def run_simulation(inp):
+def run_simulation(inp, print_stepping):
 
     twin_funcId = [3]
 
     twinRes = [[0.0]]
     baseRes = []
 
-    twinmodel = FedemRun("./", inp)
+    twinmodel = FedemRun("./", inp, print_stepping)
 
     m_strain = utils.read_data_from_file("./refStrainData.asc")
     baseDisp = utils.read_data_from_file("./refBaseData.asc")
@@ -43,13 +43,11 @@ def run_simulation(inp):
     # ======================= TIME LOOP ==========================
     for n in range(inp["total_increments"]):
 
-        print("\n+++++++++++++++++++++++++++++++++++++++++++++")
-        print("Solving time increment", n)
-
         baseRes.append([baseDisp[n]])
 
         strains_on_thing = m_strain[n]
-        print("strains_on_thing:", strains_on_thing)
+        if print_stepping:
+            print("strains_on_thing:", strains_on_thing)
 
         twinDisp = twinmodel.run_inverse(strains_on_thing, out_def=twin_funcId)
         if twinDisp is None:
@@ -57,11 +55,11 @@ def run_simulation(inp):
 
         twinRes.append(twinDisp)
 
-    twinmodel.solver_done()
+    twinmodel.done_inverse()
     return baseRes, twinRes
 
 
-def main():
+def main(print_stepping=False):
 
     if path.isfile("shell_S.fmx"):
         print("Reduced FE part found - reusing it")
@@ -70,7 +68,7 @@ def main():
         if ierr != 0:
             exit(ierr)
 
-    baseRes, twinRes = run_simulation(utils.read_input())
+    baseRes, twinRes = run_simulation(utils.read_input(), print_stepping)
 
     # graphical output with matplotlib
     if plotCurves:
@@ -85,6 +83,6 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    main(not utils.parse_input().no_print)
 
 # end of file

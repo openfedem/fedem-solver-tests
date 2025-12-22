@@ -15,20 +15,20 @@ import test_utils as utils
 plot_curves = False  # False for no plots
 
 
-def run_simulation(inp):
+def run_simulation(inp, print_stepping):
 
     # id 2 deflection, id 3 displacement end triad
     twin_funcId = [2, 3]
 
     # initialize analysis model
-    twinmodel = FedemRun(".", inp)
+    twinmodel = FedemRun(".", inp, print_stepping)
 
     twinRes = []
     baseRes = []
 
     # read the column(s) as specified in the input
     # here column 3 (contains the spring force)
-    dataMat = utils.sensor_data_matrix(inp)
+    dataMat = utils.sensor_data_matrix(inp, print_stepping)
 
     # As an alternative - reading from file refData.asc
     # [0] spring deflection,
@@ -45,8 +45,6 @@ def run_simulation(inp):
 
     # ======================= TIME LOOP =========================
     for n in range(len(dataMat)-1):
-        print("\n+++++++++++++++++++++++++++++++++++++++++++++")
-        print("Solving time increment", n)
 
         # extract data from data matrix dataMat (spring force)
         force_data = dataMat[n+1,:]
@@ -59,12 +57,12 @@ def run_simulation(inp):
 
         twinRes.append(twin)
 
-    twinmodel.solver_done()
+    twinmodel.done_inverse()
     return baseDisp, baseRes, twinRes
 
 
-def main():
-    # Check if yaml file exixts, if not use direct input
+def main(print_stepping=False):
+    # Check if yaml file exists, if not use direct input
     try:
         inp = utils.read_input()
     except:
@@ -75,7 +73,7 @@ def main():
         )
 
     # Run inverse method (static case)
-    bdsp, baseR, twinR = run_simulation(inp)
+    bdsp, baseR, twinR = run_simulation(inp, print_stepping)
 
     # take second column from baseR (contains the displacements of the end triad)
     tdisp = [ [tr[1]] for tr in twinR]
@@ -101,6 +99,6 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    main(not utils.parse_input().no_print)
 
 # end of file

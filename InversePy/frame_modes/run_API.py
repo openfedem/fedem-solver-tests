@@ -11,11 +11,11 @@ import test_utils as utils
 plot_curves = False  # False for no plots
 
 
-def run_simulation(inp):
+def run_simulation(inp, print_stepping):
 
     twin_funcId = [4]
 
-    twinmodel = FedemRun(".", inp)
+    twinmodel = FedemRun(".", inp, print_stepping)
 
     base1 = [0.0]
     baseD = utils.read_data_from_file("./refData.asc")
@@ -25,8 +25,6 @@ def run_simulation(inp):
 
     # ======================= TIME LOOP =========================
     for n in range(inp["total_increments"]):
-        print("\n+++++++++++++++++++++++++++++++++++++++++++++")
-        print("Solving time increment", n)
 
         base1[0] = baseD[n] - 0.5
         baseRes.append([baseD[n]])
@@ -37,17 +35,17 @@ def run_simulation(inp):
 
         twinRes.append(twin)
 
-    twinmodel.solver_done()
+    twinmodel.done_inverse()
     return baseRes, twinRes
 
 
-def main():
+def main(print_stepping=False):
 
     if not have_sci_py:
         print("----\n FRAME - inverse modes, skipped due to absent scipy")
         return None
 
-    baseR, twinR = run_simulation(utils.read_input())
+    baseR, twinR = run_simulation(utils.read_input(), print_stepping)
 
     # graphical output with matplotlib
     if plot_curves:
@@ -62,6 +60,6 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    main(not utils.parse_input().no_print)
 
 # end of file

@@ -11,12 +11,12 @@ import test_utils as utils
 plot_curves = False  # False for no plots
 
 
-def run_simulation(inp):
+def run_simulation(inp, print_stepping):
 
     # 8 rel Distance, 9 displacement in y and 12 spring deflection
     twin_funcId = [8,9,12]
 
-    twinmodel = FedemRun(".", inp)
+    twinmodel = FedemRun(".", inp, print_stepping)
 
     # readin the results from the base simulation (or senor values)
     baseRes = utils.read_data_from_file("./refData.asc")
@@ -27,27 +27,27 @@ def run_simulation(inp):
 
     # ======================= TIME LOOP =========================
     for n in range(len(baseRes)-1):
-        print("\n+++++++++++++++++++++++++++++++++++++++++++++")
-        print("Solving time increment {}".format(n))
 
         # base contains the second and third column from the input
         # 2nd colum disp y at the end triad
         # 3rd column spring deflection
         base = [ baseRes[n+1][1], baseRes[n+1][2] ]
         base[0] -= 0.3  # subtract initial position
-        print("Updated measurements: ", base)
+        if print_stepping:
+            print("Updated measurements:", base)
 
         # Inverse method
         twin = twinmodel.run_inverse(base,out_def=twin_funcId)
         if twin is None:
             break; # end of simulation
+
         twinRes.append(twin)
 
-    twinmodel.solver_done()
+    twinmodel.done_inverse()
     return baseRes, twinRes
 
 
-def main():
+def main(print_stepping=False):
     # Check if yaml file exists, if not use direct input
     try:
         inp = utils.read_input()
@@ -59,7 +59,7 @@ def main():
             },
         )
 
-    baseR, twinR = run_simulation(inp)
+    baseR, twinR = run_simulation(inp, print_stepping)
 
     # graphical output with matplotlib
     if plot_curves:
@@ -75,6 +75,6 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    main(not utils.parse_input().no_print)
 
 # end of file

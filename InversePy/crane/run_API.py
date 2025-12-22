@@ -16,12 +16,12 @@ import test_utils as utils
 plot_curves = False  # False for no plots
 
 
-def run_simulation(inp):
+def run_simulation(inp, print_stepping):
 
     twin_funcId = [1]  # revolute joint, spring force
 
     # initialize model
-    twinmodel = FedemRun(".", inp)
+    twinmodel = FedemRun(".", inp, print_stepping)
 
     # read in data from base run, file contains 4 colums
     # [0] strut_tz, revolute joint, z trans, length
@@ -40,17 +40,17 @@ def run_simulation(inp):
 
     # ======================= TIME LOOP =========================
     for n in range(inp['total_increments']):
-        print("\n+++++++++++++++++++++++++++++++++++++++++++++")
-        print("Solving time increment {}".format(n))
 
         # input joint spring force
         base_n[0] = base[n+1][3]
 
-        print("before: ", base_n)
+        if print_stepping:
+            print("before:", base_n)
         # convert revolute Joint spring force to deflection
         jointIDs = twinmodel.convert_rev_joint_force(base_n)
-        print("Convert spring force to displacement for rev joints: ", jointIDs)
-        print("after: ", base_n)
+        if print_stepping:
+            print("Convert spring force to displacement for rev joints:", jointIDs)
+            print("after:", base_n)
 
         baseSpr.append([base_n[0]])
 
@@ -60,11 +60,11 @@ def run_simulation(inp):
 
         twinSpr.append(twin)
 
-    twinmodel.solver_done()
+    twinmodel.done_inverse()
     return baseDisp, baseSpr, twinSpr
 
 
-def main():
+def main(print_stepping=False):
 
     try:
         inp = utils.read_input()
@@ -76,7 +76,7 @@ def main():
         )
         inp['total_increments'] = 10000
 
-    baseDisp, baseR, twinR = run_simulation(inp)
+    baseDisp, baseR, twinR = run_simulation(inp, print_stepping)
 
     # graphical output with matplotlib for forces
     if plot_curves:
@@ -92,4 +92,4 @@ def main():
     print("----\nCrane example successfully finished\n----")
 
 if __name__ == "__main__":
-    main()
+    main(not utils.parse_input().no_print)

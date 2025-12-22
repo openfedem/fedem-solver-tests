@@ -11,13 +11,13 @@ import test_utils as utils
 plot_curves = False  # False for no plots
 
 
-def run_simulation(inp):
+def run_simulation(inp, print_stepping):
 
     init_length = 1.0
 
     twin_funcId = [5]  # 5 .. rel distance triad 113-112
 
-    twinmodel = FedemRun(".", inp)
+    twinmodel = FedemRun(".", inp, print_stepping)
 
     # holds the results from the base data (graphical/numerical comparison)
     baseRes = []
@@ -31,9 +31,6 @@ def run_simulation(inp):
 
     # ======================= TIME LOOP ==========================
     for n in range(inp["total_increments"]):
-        print("\n+++++++++++++++++++++++++++++++++++++++++++++")
-        print("Solving time increment", n)
-
         base[0] = baseD[n] - init_length  # data modification based on base output
         baseRes.append([baseD[n]])
 
@@ -43,13 +40,13 @@ def run_simulation(inp):
 
         twinRes.append(twin)
 
-    twinmodel.solver_done()
+    twinmodel.done_inverse()
     return baseRes, twinRes
 
 
-def main():
+def main(print_stepping=False):
 
-    baseR, twinR = run_simulation(utils.read_input())
+    baseR, twinR = run_simulation(utils.read_input(), print_stepping)
 
     # graphical output with matplotlib
     if plot_curves:
@@ -64,6 +61,6 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    main(not utils.parse_input().no_print)
 
 # end of file
