@@ -47,6 +47,7 @@ if ( BarElm_LIBRARY )
 endif ( BarElm_LIBRARY )
 
 if ( BUILD_SOLVER_AS_DLL )
+  # Check if python is installed
   if ( CMAKE_VERSION VERSION_LESS 3.12 )
     find_package ( PythonInterp 3 ) # sets ${PYTHON_EXECUTABLE}
   else ( CMAKE_VERSION VERSION_LESS 3.12 )
@@ -59,6 +60,8 @@ if ( BUILD_SOLVER_AS_DLL )
     list ( APPEND TEST_DIRS InversePy )
   endif ( PythonInterp_FOUND )
 endif ( BUILD_SOLVER_AS_DLL )
+
+################################################################################
 
 set ( FT_TOLERANCE 1.0e-12 CACHE STRING "Regression test comparison tolerance" )
 option ( FT_LARGE_MODELS "Include large regression test models" false )
@@ -77,15 +80,20 @@ if ( VALGRIND )
   set ( VALGRIND_CMD ${VALGRIND} --leak-check=full --show-leak-kinds=all )
 endif ( VALGRIND )
 
+################################################################################
+# Create a custom target to copy relevant input files into the build tree.
+
 add_custom_target ( copy_test_input_files )
 foreach ( TEST ${TEST_DIRS} )
+  set ( TIME_DOMAIN TimeDomain/${TEST} )
+  set ( FREQ_DOMAIN FrequencyDomain/${TEST} )
   set ( BIN_DIR ${CMAKE_CURRENT_BINARY_DIR}/${TEST} )
-  set ( CML_TDA ${CMAKE_CURRENT_SOURCE_DIR}/TimeDomain/${TEST}/CMakeLists.txt )
-  set ( CML_FDA ${CMAKE_CURRENT_SOURCE_DIR}/FrequencyDomain/${TEST}/CMakeLists.txt )
+  set ( CML_TDA ${CMAKE_CURRENT_SOURCE_DIR}/${TIME_DOMAIN}/CMakeLists.txt )
+  set ( CML_FDA ${CMAKE_CURRENT_SOURCE_DIR}/${FREQ_DOMAIN}/CMakeLists.txt )
   if ( EXISTS ${CML_TDA} )
-    set ( SRC_DIR TimeDomain/${TEST} )
+    set ( SRC_DIR ${TIME_DOMAIN} )
   elseif ( EXISTS ${CML_FDA} AND FFT_LIBRARY )
-    set ( SRC_DIR FrequencyDomain/${TEST} )
+    set ( SRC_DIR ${FREQ_DOMAIN} )
   elseif ( EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/${TEST}/CMakeLists.txt )
     set ( SRC_DIR ${TEST} )
   else ( EXISTS ${CML_TDA} )
@@ -94,9 +102,17 @@ foreach ( TEST ${TEST_DIRS} )
   add_subdirectory ( ${SRC_DIR} ${BIN_DIR} )
   set ( SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/${SRC_DIR} )
   add_custom_command ( TARGET copy_test_input_files POST_BUILD
-                       COMMAND ${CMAKE_COMMAND} -E copy_directory ${SRC_DIR} ${BIN_DIR} )
+                       COMMAND ${CMAKE_COMMAND} -E copy_directory
+                       ${SRC_DIR} ${BIN_DIR} )
   add_custom_command ( TARGET copy_test_input_files POST_BUILD
                        COMMAND ${CMAKE_COMMAND} -E remove -f
-                       ${BIN_DIR}/*.md ${BIN_DIR}/CMakeLists.*
-                       ${BIN_DIR}/*/*.md ${BIN_DIR}/*/*.png ${BIN_DIR}/*/CMakeLists.* )
+                       ${BIN_DIR}/*.md ${BIN_DIR}/*/*.md
+                       ${BIN_DIR}/CMakeLists.* ${BIN_DIR}/*/CMakeLists.* )
+  if ( "${TEST}" STREQUAL "InversePy" )
+    add_custom_command ( TARGET copy_test_input_files POST_BUILD
+                         COMMAND ${CMAKE_COMMAND} -E remove -f
+                         ${BIN_DIR}/*.py ${BIN_DIR}/*/run_API.py )
+    add_custom_command ( TARGET copy_test_input_files POST_BUILD
+                         COMMAND ${CMAKE_COMMAND} -E remove_directory ${BIN_DIR}/img )
+  endif ( "${TEST}" STREQUAL "InversePy" )
 endforeach ( TEST ${TEST_DIRS} )
