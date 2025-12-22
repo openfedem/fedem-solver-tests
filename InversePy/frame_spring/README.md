@@ -54,4 +54,4 @@ available (by setting `plot_curves=True` in the `run_API.py` script).
 The curve plot shows the measurements (reference) as line,
 the results from the inverse method are presented as points.
 
-![Frame spring deflection](spring_defl_base-twin.png "Frame tip displacement")
+![Frame spring deflection](../img/spring_defl_base-twin.png "Frame tip displacement")

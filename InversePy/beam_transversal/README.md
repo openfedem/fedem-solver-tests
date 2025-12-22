@@ -39,6 +39,6 @@ The curve plots show the measurements (reference) as line,
 the results from the inverse method are presented as points.
 The results satisfy the criterion of acceptance.
 
-![Transversal beam moment](transversal_1.PNG "Transversal beam moment")
+![Transversal beam moment](../img/transversal1.png "Transversal beam moment")
 
-![Transversal beam deflection](transversal_2.PNG "Transversal beam deflection")
+![Transversal beam deflection](../img/transversal2.png "Transversal beam deflection")

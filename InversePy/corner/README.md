@@ -54,13 +54,10 @@ the data read-in, by using the utility method sensor_data_matrix().
 The read-in data columns are specified in the yaml file or by using a
 dictionary as parameter in the method `internal_eq`.
 
-The directory contains a .png file showing the match between the base and
-twin simulation.
-
 # Response data
 
 The curve plot shows the measurements (reference) as line,
 the results from the inverse method are presented as points.
 The results satisfy the criterion of acceptance.
 
-![corner](end_triad_position.png "Displacement response at the end triad")
+![corner](../img/end_triad_position.png "Displacement response at the end triad")

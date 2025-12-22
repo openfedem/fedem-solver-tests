@@ -53,4 +53,4 @@ available (by setting `plotCurves=True` in the `run_API.py` script).
 The curve plot shows the measurements (reference) as line,
 the results from the inverse method are presented as points.
 
-![Frame relative distance](dispForce.png "Frame tip displacement")
+![Frame relative distance](../img/dispForce.png "Frame tip displacement")
