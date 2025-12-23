@@ -47,4 +47,4 @@ The curve plot shows the measurements (reference) as line,
 the results from the inverse method are presented as points.
 The results satisfy the criterion of acceptance.
 
-![Shell strain](shell_strain.PNG "Shell deflection")
+![Shell strain](../img/shell_strain.png "Shell deflection")

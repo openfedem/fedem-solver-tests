@@ -52,9 +52,6 @@ the spring deflection and the spring force in z direction at the
 revolute joint (several data are given for controlling the functionality, column 1 and
 3 must have the same measurements).
 
-In the directory is a .png file showing the match between the base and
-twin simulation.
-
 # Response data
 
 The curve plot shows the measurements (reference) as line,
@@ -67,4 +64,4 @@ The results satisfy the criterion of acceptance.
 
 The figure below shows a section of the analysis.
 
-![crane_detail](results_zoomView.png "Displacement response at the end triad")
+![crane_detail](../img/results_zoomView.png "Displacement response at the end triad")

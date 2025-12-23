@@ -28,11 +28,11 @@ def run_reducer():
     return ierr
 
 
-def run_simulation(inp, useFtnInv=False):
+def run_simulation(inp, print_stepping, useFtnInv=False):
 
     twin_funcId = [4]
 
-    twinmodel = FedemRun(".", inp)
+    twinmodel = FedemRun(".", inp, print_stepping)
 
     base1 = [0.0]
     baseD = utils.read_data_from_file("./refData.asc")
@@ -42,8 +42,6 @@ def run_simulation(inp, useFtnInv=False):
 
     # ======================= TIME LOOP =========================
     for n in range(inp["total_increments"]):
-        print("\n+++++++++++++++++++++++++++++++++++++++++++++")
-        print("Solving time increment", n)
 
         base1[0] = baseD[n] - 0.5
         baseRes.append([baseD[n]])
@@ -57,11 +55,11 @@ def run_simulation(inp, useFtnInv=False):
 
         twinRes.append(twin)
 
-    twinmodel.solver_done()
+    twinmodel.done_inverse()
     return baseRes, twinRes
 
 
-def main():
+def main(print_stepping=False):
 
     if path.isfile("frame_S.fmx"):
         print("Reduced FE part found - reusing it")
@@ -72,10 +70,10 @@ def main():
 
     if environ["USE_FTNINV"] == "1":
         print("\n>>> Using the inverse method implemented in Fortran <<<\n")
-        baseR, twinR = run_simulation(utils.read_input(), True)
+        baseR, twinR = run_simulation(utils.read_input(), False, True)
     else:
         print("\n>>> Using the inverse method implemented in Python <<<\n")
-        baseR, twinR = run_simulation(utils.read_input())
+        baseR, twinR = run_simulation(utils.read_input(), print_stepping)
 
     # graphical output with matplotlib
     if plot_curves:
@@ -90,6 +88,6 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    main(not utils.parse_input().no_print)
 
 # end of file

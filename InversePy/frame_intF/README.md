@@ -53,4 +53,4 @@ available (by setting `plotCurves=True` in the `run_API.py` script).
 The curve plot shows the measurements (reference) as line,
 the results from the inverse method are presented as points.
 
-![Frame internal forces](forces.png "Frame sectional forces")
+![Frame internal forces](../img/frame_forces.png "Frame sectional forces")

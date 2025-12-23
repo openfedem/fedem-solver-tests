@@ -11,19 +11,17 @@ import test_utils as utils
 plotCurves = False  # False for no plots
 
 
-def run_simulation(inp):
+def run_simulation(inp, print_stepping):
 
     twin_funcId = [10, 7, 4]  # gage bottom (first tensor component), force X, disp Z
 
-    twinmodel = FedemRun(".", inp)
+    twinmodel = FedemRun(".", inp, print_stepping)
 
     baseRes = utils.read_data_from_file("./refData.asc")
     twinRes = []
 
     # ======================= TIME LOOP =========================
     for n in range(inp["total_increments"]):
-        print("\n+++++++++++++++++++++++++++++++++++++++++++++")
-        print("Solving time increment", n)
 
         base1 = baseRes[n]
 
@@ -31,14 +29,15 @@ def run_simulation(inp):
         if twin is None:
             break  # end of simulation
 
-        print("twin sensors:", twin)
+        if print_stepping:
+            print("twin sensors:", twin)
         twinRes.append(twin)
 
-    twinmodel.solver_done()
+    twinmodel.done_inverse()
     return baseRes, twinRes
 
 
-def main():
+def main(print_stepping=False):
 
     try:
         inp = utils.read_input()
@@ -52,7 +51,7 @@ def main():
         )
         inp['total_increments'] = 100
 
-    baseR, twinR = run_simulation(inp)
+    baseR, twinR = run_simulation(inp, print_stepping)
 
     # graphical output with matplotlib
     if plotCurves:
@@ -69,6 +68,6 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    main(not utils.parse_input().no_print)
 
 # end of file

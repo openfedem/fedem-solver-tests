@@ -11,19 +11,17 @@ import test_utils as utils
 plot_curves = False  # False for no plots
 
 
-def run_simulation(inp):
+def run_simulation(inp, print_stepping):
 
     twin_funcId = [8, 9, 4]  # results Mz_17, Qy_113 and Disp_114
 
-    twinmodel = FedemRun(".", inp)
+    twinmodel = FedemRun(".", inp, print_stepping)
 
     baseRes = utils.read_data_from_file("./refData.asc", sep=",")
     twinRes = []
 
     # ======================= TIME LOOP ==========================
     for n in range(inp["total_increments"]):
-        print("\n+++++++++++++++++++++++++++++++++++++++++++++")
-        print("Solving time increment", n)
 
         base = baseRes[n, 0:2]  # prepare input for twin, only internal forces
 
@@ -33,11 +31,11 @@ def run_simulation(inp):
 
         twinRes.append(twin)
 
-    twinmodel.solver_done()
+    twinmodel.done_inverse()
     return baseRes, twinRes
 
 
-def main():
+def main(print_stepping=False):
 
     # Check if yaml file exists, if not use direct input
     try:
@@ -50,7 +48,7 @@ def main():
         )
         inp['total_increments'] = 1000
 
-    baseR, twinR = run_simulation(inp)
+    baseR, twinR = run_simulation(inp, print_stepping)
 
     # graphical output with matplotlib
     # output internal forces
@@ -73,6 +71,6 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    main(not utils.parse_input().no_print)
 
 # end of file

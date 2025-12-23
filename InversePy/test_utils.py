@@ -170,6 +170,12 @@ def parse_input(src_dir=None):
         default=0,
         help="Specify runtype: 0 parallel run, 1 serial run, 2 only base, 3 only twin",
     )
+    parser.add_argument(
+        "-q",
+        "--no-print",
+        action="store_true",
+        help="Suppress time step print.",
+    )
     parser.add_argument("-H", action="store_true", help="Print help for current module")
 
     return parser.parse_args()
@@ -183,7 +189,7 @@ def read_input(src_dir=None):
     return safe_load(open(args.input, "r"))[args.method][args.case]
 
 
-def sensor_data_matrix(inp):  # NOSONAR
+def sensor_data_matrix(inp, do_print=True):  # NOSONAR
     """
     Parsing data source
     Supports only the reading from file!
@@ -200,7 +206,8 @@ def sensor_data_matrix(inp):  # NOSONAR
     ]
     eq_list_def = [key for key in inp["internal_equations"] if key in eq_list]
 
-    print("inp:",inp)
+    if do_print:
+        print("inp:",inp)
 
     data_mat = None
     for item in eq_list_def:
@@ -233,7 +240,7 @@ def sensor_data_matrix(inp):  # NOSONAR
                             raise ValueError("Only reading from file is supported")
                         break
 
-    if data_mat is not None:
+    if data_mat is not None and do_print:
         print("\ntype: ", type(data_mat), " --- size: ", np.size(data_mat, axis = 0))
 
     return data_mat

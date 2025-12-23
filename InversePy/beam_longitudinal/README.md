@@ -40,4 +40,4 @@ The curve plot shows the measurements (reference) as line,
 the results from the inverse method are presented as points.
 The results satisfy the criterion of acceptance.
 
-![Longitudinal beam](longitudinal.PNG "Longitudinal beam response")
+![Longitudinal beam](../img/longitudinal.png "Longitudinal beam response")
