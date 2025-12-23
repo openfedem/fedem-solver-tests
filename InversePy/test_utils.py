@@ -207,7 +207,7 @@ def sensor_data_matrix(inp, do_print=True):  # NOSONAR
     eq_list_def = [key for key in inp["internal_equations"] if key in eq_list]
 
     if do_print:
-        print("inp:",inp)
+        print("inp:", inp)
 
     data_mat = None
     for item in eq_list_def:
@@ -241,7 +241,7 @@ def sensor_data_matrix(inp, do_print=True):  # NOSONAR
                         break
 
     if data_mat is not None and do_print:
-        print("\ntype: ", type(data_mat), " --- size: ", np.size(data_mat, axis = 0))
+        print("\ntype:", type(data_mat), "--- size:", np.size(data_mat, axis = 0))
 
     return data_mat
 

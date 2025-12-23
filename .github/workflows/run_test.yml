@@ -44,4 +44,4 @@ jobs:
           -DUSE_FFTPACK=ON -DFT_LARGE_MODELS=OFF -DFT_TOLERANCE=1.0e-10
 
       - name: Execute tests
-        run:  cmake --build ./build --target check
+        run: cmake --build ./build --target check
