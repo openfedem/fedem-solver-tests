@@ -444,7 +444,7 @@
   extId = 1
   extDescr = 'Sensor on Triad [9]'
   type = 'TRIAD'
-  triad1Id  = 24
+  triadId   = 24
   dof       = 2
   dofEntity = 'POS'
   dofSystem = 'GLOBAL'
@@ -455,9 +455,7 @@
   extId = 1
   extDescr = 'Relative sensor between Triad [7] and Triad [3]'
   type = 'RELATIVE_TRIAD'
-  triad1Id  = 22
-  triad2Id  = 18
-  dof       = 0
+  triadId   = 22 18
   dofEntity = 'REL_POS'
   dofSystem = 'GLOBAL'
 /
@@ -498,4 +496,3 @@
   extDescr = 'sprFrc'
   nArg = 1, argSensorId = 13618
 /
-

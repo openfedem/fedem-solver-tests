@@ -208,7 +208,7 @@
   extId = 1
   extDescr = 'Sensor on Triad [2]'
   type = 'TRIAD'
-  triad1Id  = 17
+  triadId   = 17
   dof       = 2
   dofEntity = 'POS'
   dofSystem = 'GLOBAL'
@@ -219,7 +219,7 @@
   extId = 2
   extDescr = 'Sensor on Triad [3]'
   type = 'TRIAD'
-  triad1Id  = 112
+  triadId   = 112
   dof       = 2
   dofEntity = 'POS'
   dofSystem = 'GLOBAL'
@@ -230,7 +230,7 @@
   extId = 3
   extDescr = 'Sensor on Triad [4]'
   type = 'TRIAD'
-  triad1Id  = 113
+  triadId   = 113
   dof       = 2
   dofEntity = 'POS'
   dofSystem = 'GLOBAL'
@@ -241,7 +241,7 @@
   extId = 4
   extDescr = 'Sensor on Triad [5]'
   type = 'TRIAD'
-  triad1Id  = 114
+  triadId   = 114
   dof       = 2
   dofEntity = 'POS'
   dofSystem = 'GLOBAL'
@@ -252,9 +252,7 @@
   extId = 1
   extDescr = 'Relative sensor between Triad [4] and Triad [3]'
   type = 'RELATIVE_TRIAD'
-  triad1Id  = 113
-  triad2Id  = 112
-  dof       = 0
+  triadId   = 113 112
   dofEntity = 'REL_POS'
   dofSystem = 'GLOBAL'
 /
@@ -264,7 +262,7 @@
   extId = 2
   extDescr = 'Sensor on Triad [3]'
   type = 'TRIAD'
-  triad1Id  = 112
+  triadId   = 112
   dof       = 1
   dofEntity = 'FORCE'
   dofSystem = 'LOCAL'
@@ -275,7 +273,7 @@
   extId = 3
   extDescr = 'Sensor on Triad [4]'
   type = 'TRIAD'
-  triad1Id  = 113
+  triadId   = 113
   dof       = 1
   dofEntity = 'FORCE'
   dofSystem = 'LOCAL'
@@ -286,7 +284,7 @@
   extId = 1
   extDescr = 'Sensor on Triad [2]'
   type = 'TRIAD'
-  triad1Id  = 17
+  triadId   = 17
   dof       = 6
   dofEntity = 'FORCE'
   dofSystem = 'LOCAL'
@@ -297,7 +295,7 @@
   extId = 3
   extDescr = 'Sensor on Triad [4]'
   type = 'TRIAD'
-  triad1Id  = 113
+  triadId   = 113
   dof       = 2
   dofEntity = 'FORCE'
   dofSystem = 'LOCAL'
@@ -361,4 +359,3 @@
   extDescr = 'Qy_113'
   nArg = 1, argSensorId = 144219
 /
-

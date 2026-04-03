@@ -329,7 +329,7 @@
   extId = 1
   extDescr = 'Sensor on Triad [9]'
   type = 'TRIAD'
-  triad1Id  = 36
+  triadId   = 36
   dof       = 1
   dofEntity = 'POS'
   dofSystem = 'GLOBAL'
@@ -340,7 +340,7 @@
   extId = 1
   extDescr = 'Sensor on Triad [9]'
   type = 'TRIAD'
-  triad1Id  = 36
+  triadId   = 36
   dof       = 2
   dofEntity = 'POS'
   dofSystem = 'GLOBAL'
@@ -351,7 +351,7 @@
   extId = 1
   extDescr = 'Sensor on Triad [9]'
   type = 'TRIAD'
-  triad1Id  = 36
+  triadId   = 36
   dof       = 3
   dofEntity = 'POS'
   dofSystem = 'GLOBAL'
@@ -410,4 +410,3 @@
   type = 'DEVICE_FUNCTION'
   channel = 2
 /
-

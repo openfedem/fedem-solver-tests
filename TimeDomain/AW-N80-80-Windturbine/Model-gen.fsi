@@ -5449,7 +5449,7 @@
   extId = 24 1
   extDescr = 'Sensor on Triad [103]'
   type = 'TRIAD'
-  triad1Id  = 323
+  triadId   = 323
   dof       = 1
   dofEntity = 'POS'
   dofSystem = 'GLOBAL'
@@ -5460,7 +5460,7 @@
   extId = 24 1
   extDescr = 'Sensor on Triad [103]'
   type = 'TRIAD'
-  triad1Id  = 323
+  triadId   = 323
   dof       = 2
   dofEntity = 'POS'
   dofSystem = 'GLOBAL'
@@ -5471,7 +5471,7 @@
   extId = 24 1
   extDescr = 'Sensor on Triad [103]'
   type = 'TRIAD'
-  triad1Id  = 323
+  triadId   = 323
   dof       = 5
   dofEntity = 'FORCE'
   dofSystem = 'GLOBAL'
@@ -5482,7 +5482,7 @@
   extId = 24 1
   extDescr = 'Sensor on Triad [103]'
   type = 'TRIAD'
-  triad1Id  = 323
+  triadId   = 323
   dof       = 6
   dofEntity = 'FORCE'
   dofSystem = 'GLOBAL'
@@ -5493,7 +5493,7 @@
   extId = 27 1
   extDescr = 'Sensor on Triad [78]'
   type = 'TRIAD'
-  triad1Id  = 248
+  triadId   = 248
   dof       = 1
   dofEntity = 'POS'
   dofSystem = 'GLOBAL'
@@ -5504,7 +5504,7 @@
   extId = 27 1
   extDescr = 'Sensor on Triad [78]'
   type = 'TRIAD'
-  triad1Id  = 248
+  triadId   = 248
   dof       = 2
   dofEntity = 'POS'
   dofSystem = 'GLOBAL'
@@ -5515,7 +5515,7 @@
   extId = 27 1
   extDescr = 'Sensor on Triad [78]'
   type = 'TRIAD'
-  triad1Id  = 248
+  triadId   = 248
   dof       = 5
   dofEntity = 'FORCE'
   dofSystem = 'GLOBAL'
@@ -5526,7 +5526,7 @@
   extId = 27 1
   extDescr = 'Sensor on Triad [78]'
   type = 'TRIAD'
-  triad1Id  = 248
+  triadId   = 248
   dof       = 6
   dofEntity = 'FORCE'
   dofSystem = 'GLOBAL'
@@ -5537,7 +5537,7 @@
   extId = 13 1
   extDescr = 'Sensor on Triad [51]'
   type = 'TRIAD'
-  triad1Id  = 167
+  triadId   = 167
   dof       = 1
   dofEntity = 'POS'
   dofSystem = 'GLOBAL'
@@ -5548,7 +5548,7 @@
   extId = 13 1
   extDescr = 'Sensor on Triad [51]'
   type = 'TRIAD'
-  triad1Id  = 167
+  triadId   = 167
   dof       = 2
   dofEntity = 'POS'
   dofSystem = 'GLOBAL'
@@ -5559,7 +5559,7 @@
   extId = 13 1
   extDescr = 'Sensor on Triad [51]'
   type = 'TRIAD'
-  triad1Id  = 167
+  triadId   = 167
   dof       = 5
   dofEntity = 'FORCE'
   dofSystem = 'GLOBAL'
@@ -5570,7 +5570,7 @@
   extId = 13 1
   extDescr = 'Sensor on Triad [51]'
   type = 'TRIAD'
-  triad1Id  = 167
+  triadId   = 167
   dof       = 6
   dofEntity = 'FORCE'
   dofSystem = 'GLOBAL'
@@ -5581,7 +5581,7 @@
   extId = 18 1
   extDescr = 'Sensor on Triad [26]'
   type = 'TRIAD'
-  triad1Id  = 92
+  triadId   = 92
   dof       = 1
   dofEntity = 'POS'
   dofSystem = 'GLOBAL'
@@ -5592,7 +5592,7 @@
   extId = 18 1
   extDescr = 'Sensor on Triad [26]'
   type = 'TRIAD'
-  triad1Id  = 92
+  triadId   = 92
   dof       = 2
   dofEntity = 'POS'
   dofSystem = 'GLOBAL'
@@ -5603,7 +5603,7 @@
   extId = 18 1
   extDescr = 'Sensor on Triad [26]'
   type = 'TRIAD'
-  triad1Id  = 92
+  triadId   = 92
   dof       = 5
   dofEntity = 'FORCE'
   dofSystem = 'GLOBAL'
@@ -5614,7 +5614,7 @@
   extId = 18 1
   extDescr = 'Sensor on Triad [26]'
   type = 'TRIAD'
-  triad1Id  = 92
+  triadId   = 92
   dof       = 6
   dofEntity = 'FORCE'
   dofSystem = 'GLOBAL'
@@ -5625,7 +5625,7 @@
   extId = 23 1
   extDescr = 'Sensor on Triad [1]'
   type = 'TRIAD'
-  triad1Id  = 19
+  triadId   = 19
   dof       = 1
   dofEntity = 'POS'
   dofSystem = 'GLOBAL'
@@ -5636,7 +5636,7 @@
   extId = 23 1
   extDescr = 'Sensor on Triad [1]'
   type = 'TRIAD'
-  triad1Id  = 19
+  triadId   = 19
   dof       = 2
   dofEntity = 'POS'
   dofSystem = 'GLOBAL'
@@ -5647,7 +5647,7 @@
   extId = 23 1
   extDescr = 'Sensor on Triad [1]'
   type = 'TRIAD'
-  triad1Id  = 19
+  triadId   = 19
   dof       = 5
   dofEntity = 'FORCE'
   dofSystem = 'GLOBAL'
@@ -5658,7 +5658,7 @@
   extId = 23 1
   extDescr = 'Sensor on Triad [1]'
   type = 'TRIAD'
-  triad1Id  = 19
+  triadId   = 19
   dof       = 6
   dofEntity = 'FORCE'
   dofSystem = 'GLOBAL'

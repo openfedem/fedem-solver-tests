@@ -552,9 +552,7 @@
   extId = 1
   extDescr = 'Relative sensor between Triad [18] and Triad [11]'
   type = 'RELATIVE_TRIAD'
-  triad1Id  = 71
-  triad2Id  = 50
-  dof       = 0
+  triadId   = 71 50
   dofEntity = 'REL_POS'
   dofSystem = 'GLOBAL'
 /
@@ -564,7 +562,7 @@
   extId = 1
   extDescr = 'Sensor on Triad [4]'
   type = 'TRIAD'
-  triad1Id  = 19
+  triadId   = 19
   dof       = 2
   dofEntity = 'POS'
   dofSystem = 'GLOBAL'
@@ -677,4 +675,3 @@
   Emod =  2.100000000e+11
   nu   =  2.950000000e-01
 /
-
