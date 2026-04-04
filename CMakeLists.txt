@@ -16,7 +16,7 @@
 set ( TEST_DIRS FreeFallTriad SimplePendulum MassSpring BeamModes
                 ConstantCurrent AddedMass InternalFluid
                 ParticleInWaves SoilDegradation CarSuspension CamJoint
-                DampedOscillator CorotatedLoad
+                DampedOscillator CorotatedLoad AngleSensor
                 Tower Frame Sweep SpringDamper RobotArm )
 
 if ( TARGET test_external )
