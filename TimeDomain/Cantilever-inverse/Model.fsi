@@ -204,7 +204,7 @@
   extId = 1
   extDescr = 'Sensor on Triad [2]'
   type = 'TRIAD'
-  triad1Id  = 17
+  triadId   = 17
   dof       = 2
   dofEntity = 'POS'
   dofSystem = 'GLOBAL'
@@ -215,7 +215,7 @@
   extId = 2
   extDescr = 'Sensor on Triad [3]'
   type = 'TRIAD'
-  triad1Id  = 112
+  triadId   = 112
   dof       = 2
   dofEntity = 'POS'
   dofSystem = 'GLOBAL'
@@ -226,7 +226,7 @@
   extId = 3
   extDescr = 'Sensor on Triad [4]'
   type = 'TRIAD'
-  triad1Id  = 113
+  triadId   = 113
   dof       = 2
   dofEntity = 'POS'
   dofSystem = 'GLOBAL'
@@ -237,7 +237,7 @@
   extId = 4
   extDescr = 'Sensor on Triad [5]'
   type = 'TRIAD'
-  triad1Id  = 114
+  triadId   = 114
   dof       = 2
   dofEntity = 'POS'
   dofSystem = 'GLOBAL'

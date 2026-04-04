@@ -511,7 +511,7 @@
   extId = 1
   extDescr = 'Sensor on Triad [2]'
   type = 'TRIAD'
-  triad1Id  = 17
+  triadId   = 17
   dof       = 3
   dofEntity = 'F_VEL'
   dofSystem = 'GLOBAL'

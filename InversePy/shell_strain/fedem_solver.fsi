@@ -124,7 +124,7 @@
   extId = 2
   extDescr = 'Sensor on Triad [3]'
   type = 'TRIAD'
-  triad1Id  = 21
+  triadId   = 21
   dof       = 2
   dofEntity = 'POS'
   dofSystem = 'GLOBAL'
