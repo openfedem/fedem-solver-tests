@@ -68,15 +68,11 @@ EARTH_COORDINATE_SYSTEM =
 1.00000000 0.00000000 0.00000000 0.00000000
 0.00000000 1.00000000 0.00000000 0.00000000
 0.00000000 0.00000000 1.00000000 0.00000000;
-ELEMENT_PLUGIN = "plugins\BarElm.dll";
-FUNCTION_PLUGIN = "plugins\ExternalWaveGenerator.dll";
 GLOBAL_INITIAL_VELOCITY = 0 0 0;
 GRAVITY = 0 -9.81 0;
 ID = 1;
 POSITION_TOLERANCE = 0.0001;
-RESULT_STATUS_DATA = <"response",8,"fedem_solver.fao","fedem_solver.fco","fedem_solver.fop","fedem_solver.fsi","fedem_solver.res","response.bak.fmm",
-    <"timehist_prim",1,"th_p_1.frs">,
-    <"timehist_sec",1,"th_s_2.frs">>;
+RESULT_STATUS_DATA = <"response",1>;
 }
 
 ANALYSIS

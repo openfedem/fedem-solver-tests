@@ -16,7 +16,7 @@
 # Additional user-defined options
 -allEngineVars
 # Curve auto-export parameters
--curveFile "Beam.fmm"
+-curveFile "Beams.fmm"
 -curvePlotType 5
 -curvePlotPrec 1
 # Switch off normal console output
