@@ -1,0 +1,11 @@
+#FEDEM calculation options
+-linkfile "Plate2D.ftl"
+-lumpedmass
+-extNodes <1,56,66,211,222,231,376,386,441>
+#FEDEM output options
+-linkId 16
+-Bmatfile "Plate2D_B.fmx"
+-gravfile "Plate2D_G.fmx"
+-samfile "Plate2D_SAM.fsm"
+-stiffile "Plate2D_S.fmx"
+-massfile "Plate2D_M.fmx"

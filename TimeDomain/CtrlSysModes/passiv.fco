@@ -1,0 +1,16 @@
+#FEDEM calculation options
+-fsifile "ShellSprDmp.fsi"
+-fsi2file "passiv.fsi"
+# Time integration parameters
+-timeEnd 0
+# Eigenvalue solution parameters
+-eiginc 0.1
+-numEigModes 10
+-undamped
+-stressStiffEig
+# Switch off frs-file output
+-allPrimaryVars-
+# Curve auto-export parameters
+-curveFile "ShellSpring.fmm"
+-curvePlotType 5
+-curvePlotPrec 1
